@@ -9,153 +9,41 @@
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
 const listaTareas = document.querySelector('.conjunto-tareas')
-const borrarLista = document.getElementById('borrar-lista')
+const botonBorrarLista = document.getElementById('borrar-lista')
 
-const tareasPendientes = ["estoy pendiente","pepepepe","arroz con pollo"]
+const tareasPendientes = []
 const tareasHechas = []
 
-// CREO QUE YA ESTÁ BIEN
 botonNuevaTarea.addEventListener('click', ()=>{
 
     if (input.value !== ""){
-
-
         tareasPendientes.push(input.value)
-
-        // falta ponerle el índice
-
     }
 
     imprimirListas();
     limpiarInput();
 });
 
-// CREO QUE ESTÁ BIEN
-input.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter'){
-        botonNuevaTarea.click(); // DEBERÍA HACER LO MISMO CREO
-    }
-})
+function imprimirListas(){
 
+    // limpiar campo
+    listaTareas.textContent = "";
 
+    // imprimir las tareas
+    mostrarListas(tareasHechas, tareasPendientes,true)
+    mostrarListas(tareasPendientes,tareasHechas, false)
 
-// MODIFICAR
-borrarLista.addEventListener('click', ()=>{
+}
+
+botonBorrarLista.addEventListener('click', ()=>{
     tareasPendientes.length = 0
     tareasHechas.length = 0
-
-    console.log(tareasHechas);
-    console.log(tareasPendientes);
     
     imprimirListas();
 })
 
-
-
-// CREO QUE ESTÁ BIEN
-function limpiarInput(){
-    input.value = "";
-    input.focus();
-}
-
-function imprimirListas(){
-
-    let auxIndexPendientes = 0;
-    let auxIndexCompletadas = 0;
-
-    // limpiar capo
-    listaTareas.textContent = "";
-
-    // imprimir completadas
-    for(const pendientes of tareasHechas){
-
-        const plantilla = document.querySelector('template').content.cloneNode(true)
-        const p = plantilla.firstElementChild.firstElementChild // etiqueta p
-        const botonBorrar = plantilla.firstElementChild.lastElementChild.lastElementChild;
-        const botonListar = plantilla.firstElementChild.lastElementChild.firstElementChild;
-
-
-        
-        plantilla.firstElementChild.classList.add('listado');
-
-        plantilla.firstElementChild.setAttribute('data-valor', auxIndexCompletadas);
-        
-        // Asignamos el contenido del input
-        p.textContent = pendientes 
-        
-        // Botón Borrar
-        botonBorrar.addEventListener('click', (e)=>{
-            const indiceActual = e.target.parentElement.parentElement.getAttribute('data-valor')
-            tareasHechas.splice(indiceActual, 1);
-            imprimirListas();
-        })
-
-        //Botón Listar
-        botonListar.addEventListener('click', (e)=>{
-
-            const indiceActual = e.target.parentElement.parentElement.getAttribute('data-valor')
-            tareasPendientes.push(tareasHechas[indiceActual])
-            tareasHechas.splice(indiceActual, 1);
-            imprimirListas();
-
-        })
-     
-        // Agregar y resetear input
-        listaTareas.appendChild(plantilla);
-
-        console.log(auxIndexCompletadas);
-        auxIndexCompletadas++;
-
-    }
-
-    
-    // imprimir pendientes
-    for(const pendientes of tareasPendientes){
-
-        const plantilla = document.querySelector('template').content.cloneNode(true)
-        const p = plantilla.firstElementChild.firstElementChild // etiqueta p
-        const botonBorrar = plantilla.firstElementChild.lastElementChild.lastElementChild;
-        const botonListar = plantilla.firstElementChild.lastElementChild.firstElementChild;
-
-        plantilla.firstElementChild.setAttribute('data-valor', auxIndexPendientes);
-        
-        // Asignamos el contenido del input
-        p.textContent = pendientes 
-        
-        // Botón Borrar
-        botonBorrar.addEventListener('click', (e)=>{
-            const indiceActual = e.target.parentElement.parentElement.getAttribute('data-valor')
-            tareasPendientes.splice(indiceActual, 1);
-            imprimirListas();
-        
-            
-        })
-
-        //Botón Listar
-        botonListar.addEventListener('click', (e)=>{
-
-            const indiceActual = e.target.parentElement.parentElement.getAttribute('data-valor') // obteniendo el indice
-            tareasHechas.push(tareasPendientes[indiceActual]) // Añadiendo el valor actual a la otra array
-            tareasPendientes.splice(indiceActual, 1);
-            imprimirListas();
-
-        })
-     
-        // Agregar y resetear input
-        listaTareas.appendChild(plantilla);
-        auxIndexPendientes++;
-    }
-
-}
-
-function verListasEnConsola(){
-    console.log("Pendientes");
-    console.log(tareasPendientes);
-    console.log("Completadas");
-    console.log(tareasHechas);
-}
-
-function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
+//El tercer parámetro debe ser un booleano, solo colocar true si el primer parámetro necesita estilos de elemento marcado
+function mostrarListas(arrayOrigen, arrayHermano, aparienciaDeListado){
 
     let auxIndice = 0;
 
@@ -176,7 +64,7 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
         p.textContent = tarea;
 
         // Dependiendo del array aplicamos clases
-        if(isThisAListadeArray){
+        if(aparienciaDeListado){
             divTarea.classList.add('listado')
         }
 
@@ -185,7 +73,10 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
             const divTareaActual = e.target.parentElement.parentElement
             const indexRef = divTareaActual.getAttribute('data-valor')
             
-            arrayOrigen.splice(indexRef,1)
+            //elimina el elemento del array
+            arrayOrigen.splice(indexRef,1);
+
+            imprimirListas();
         })
         
         // Boton Listar
@@ -193,10 +84,12 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
             const divTareaActual = e.target.parentElement.parentElement
             const indexRef = divTareaActual.getAttribute('data-valor')
 
+            // añade el elemento al arrat contrario
             arrayHermano.push(arrayOrigen[indexRef]);
+            // elimina ese elemento del array actual
             arrayOrigen.splice(indexRef, 1);
 
-            verListasEnConsola();
+            imprimirListas();
         })
 
         auxIndice++;
@@ -207,4 +100,22 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
     }
 }
 
-pintaArrays(tareasPendientes,tareasHechas, false)
+// Funcion para testear
+function verListasEnConsola(){
+    console.log("Pendientes");
+    console.log(tareasPendientes);
+    console.log("Completadas");
+    console.log(tareasHechas);
+}
+
+// Atajo tecla ENTER
+input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+        botonNuevaTarea.click(); 
+    }
+})
+
+function limpiarInput(){
+    input.value = "";
+    input.focus();
+}
