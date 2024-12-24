@@ -1,8 +1,10 @@
 :root{
-    --colorSecundario: #5a2a86;
-    --colorPrimario: #15b08c;
     --negroClaro: #888;
     --negroOscruo: #333;
+
+    --colorSecundario: #7a3b9c;
+    --colorPrimario: #1aa67f;
+    --colorBorrar: #9b1f45;
 }
 
 *{
@@ -87,7 +89,7 @@ input::placeholder{
 
 .entrada{
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 1em;
     justify-content: space-between;
     height: 2.2em;
     width: 100%;
@@ -95,15 +97,17 @@ input::placeholder{
 
 /* TAREAS */
 
-p{
-    /* width: 50%; */
-    background-color: blue;
+
+p {
+    max-width: calc(100% - 4.2rem); 
+    overflow-wrap: break-word; 
 }
 
 .conjunto-tareas{
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
+    margin-bottom: 0.7em;
 }
 
 .tarea{
@@ -119,8 +123,6 @@ p{
 
 .tarea-botones{
     display: flex;
-    width: 100px;
-    background-color: red;
 }
 
 .tarea-botones button{
@@ -133,6 +135,16 @@ p{
 
     background-color: var(--colorSecundario);
 }
+
+/* Botón de eliminar */
+.tarea-botones button:nth-child(2) {
+    background-color: var(--colorBorrar);
+  }
+
+.container-interior > button{
+    background-color: var(--colorBorrar);
+}
+
 
 /* LISTADO DE ESTILOS */
 

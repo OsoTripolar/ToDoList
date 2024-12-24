@@ -1,11 +1,11 @@
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
 const listaTareas = document.querySelector('.conjunto-tareas')
+const borrarLista = document.getElementById('borrar-lista')
 
 botonNuevaTarea.addEventListener('click', ()=>{
 
     if (input.value !== ""){
-
 
         const plantilla = document.querySelector('template').content.cloneNode(true)
         const p = plantilla.firstElementChild.firstElementChild // etiqueta p
@@ -27,9 +27,9 @@ botonNuevaTarea.addEventListener('click', ()=>{
      
         // Agregar y resetear input
         listaTareas.appendChild(plantilla);
-        input.value = "";
 
-        input.focus();
+        limpiarInput();
+
     }
 });
 
@@ -38,3 +38,13 @@ input.addEventListener('keydown', (e)=>{
         botonNuevaTarea.click();
     }
 })
+
+borrarLista.addEventListener('click', ()=>{
+    listaTareas.textContent = "";
+    limpiarInput();
+})
+
+function limpiarInput(){
+    input.value = "";
+    input.focus();
+}
