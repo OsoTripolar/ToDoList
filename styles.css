@@ -5,6 +5,10 @@
     --colorSecundario: #7a3b9c;
     --colorPrimario: #1aa67f;
     --colorBorrar: #9b1f45;
+
+    --negroClaroActive: #555;
+    --colorSecundarioActive: #48235b;
+    --colorBorrarActive: #68172f;
 }
 
 *{
@@ -18,29 +22,17 @@
 
 body{
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    padding: 3rem 0;
+    padding: 3rem 0 2rem;
 
     background-color: var(--negroOscruo);
-}
-
-button{
-    height: 2.2rem;
-    width: 8em;
-
-    font-weight: bold;
-
-    background-color: var(--colorSecundario);
-    color: white;
-    border-radius: 0.7em;
-    border: none;
-    cursor: pointer;
 }
 
 h1{
     margin-top: 20px;
     margin-bottom: 1em;
-
+    
     margin: 20px 0;
     margin: 1rem 0;
     
@@ -64,10 +56,37 @@ input::placeholder{
     color: var(--negroClaro);
 }
 
+button{
+    height: 2.2rem;
+    width: 8em;
+
+    font-weight: bold;
+
+    background-color: var(--colorSecundario);
+    color: white;
+    border-radius: 0.7em;
+    border: none;
+    cursor: pointer;
+}
+
+button:active{
+    background-color: var(--colorSecundarioActive)
+}
+
+footer{
+    height: 1em;
+}
+
+footer p{
+    margin: auto;
+    text-align: center;
+    color: var(--negroClaro);    
+}
+
 /* ------------- ELEMENTOS -------------*/
 
 .container{
-
+    
     margin: auto;
     width: 85%;
     max-width: 700px;
@@ -136,13 +155,25 @@ p {
     background-color: var(--colorSecundario);
 }
 
+.tarea-botones button:active{
+    background-color: var(--colorSecundarioActive);
+}
+
 /* Botón de eliminar */
 .tarea-botones button:nth-child(2) {
     background-color: var(--colorBorrar);
   }
 
-.container-interior > button{
+.tarea-botones button:nth-child(2):active {
+    background-color: var(--colorBorrarActive);
+  }
+
+.container-borrar button{
     background-color: var(--colorBorrar);
+}
+
+.container-borrar > :active{
+    background-color: var(--colorBorrarActive);
 }
 
 
@@ -161,4 +192,8 @@ p {
 
 .listado button{
     background-color: var(--negroClaro);
+}
+
+.listado button:active{
+    background-color: var(--negroClaroActive);
 }

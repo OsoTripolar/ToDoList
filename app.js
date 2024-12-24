@@ -1,3 +1,11 @@
+// VERSION 1: easy
+
+// En esta versión haremos la lista de tareas utilizando templates
+
+    // v1: solo templates
+    // v2: objetos
+    // v3: localStorage
+
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
 const listaTareas = document.querySelector('.conjunto-tareas')
@@ -28,9 +36,9 @@ botonNuevaTarea.addEventListener('click', ()=>{
         // Agregar y resetear input
         listaTareas.appendChild(plantilla);
 
-        limpiarInput();
-
     }
+
+    limpiarInput();
 });
 
 input.addEventListener('keydown', (e)=>{
