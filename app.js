@@ -11,7 +11,7 @@ const botonNuevaTarea = document.getElementById('nueva-tarea')
 const listaTareas = document.querySelector('.conjunto-tareas')
 const borrarLista = document.getElementById('borrar-lista')
 
-const tareasPendientes = ["estoy pendiente"]
+const tareasPendientes = ["estoy pendiente","pepepepe","arroz con pollo"]
 const tareasHechas = []
 
 // CREO QUE YA ESTÁ BIEN
@@ -161,17 +161,17 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
 
     for(const tarea of arrayOrigen){
 
-        verListasEnConsola();
-
         // Acceso y clonación del template
         const template = document.querySelector('template')
         const clone = document.importNode(template.content, true);
 
         // Seleccion de los elementos
-        const divTarea = clone.querySelector('.tarea-botones');
+        const divTarea = clone.querySelector('.tarea');
         const p = clone.querySelector('p');
         const botonBorrar = clone.querySelector('.boton-eliminar');
         const botonListar = clone.querySelector('.boton-listar');
+
+        // Modificación de Elementos
         divTarea.setAttribute('data-valor', auxIndice);
         p.textContent = tarea;
 
@@ -183,7 +183,7 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
         // Boton Borrar
         botonBorrar.addEventListener('click', (e)=>{
             const divTareaActual = e.target.parentElement.parentElement
-            const indexRef = divTareaActual.getAttribute.getAttribute('data-valor')
+            const indexRef = divTareaActual.getAttribute('data-valor')
             
             arrayOrigen.splice(indexRef,1)
         })
@@ -191,7 +191,7 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
         // Boton Listar
         botonListar.addEventListener('click', (e)=>{
             const divTareaActual = e.target.parentElement.parentElement
-            const indexRef = divTareaActual.getAttribute.getAttribute('data-valor')
+            const indexRef = divTareaActual.getAttribute('data-valor')
 
             arrayHermano.push(arrayOrigen[indexRef]);
             arrayOrigen.splice(indexRef, 1);
@@ -201,10 +201,10 @@ function pintaArrays(arrayOrigen, arrayHermano, isThisAListadeArray){
 
         auxIndice++;
         
-        // Vuelve a Imprimir en Pantalla
-        listaTareas.appendChild(divTarea);
+        // Lo añade al DOM
+        listaTareas.appendChild(clone);
 
     }
-
-    verListasEnConsola();
 }
+
+pintaArrays(tareasPendientes,tareasHechas, false)
