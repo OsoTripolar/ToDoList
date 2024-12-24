@@ -1,0 +1,123 @@
+:root{
+    --colorSecundario: rgb(90, 42, 134);
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family:sans-serif;
+    user-select: none;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    background-color: #333;
+    padding: 50px;
+}
+
+button{
+    font-weight: bold;
+    width: 120px;
+    color: white;
+    background-color: var(--colorSecundario);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+h1{
+    font-size: 2.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* PARTE SUPERIOR */
+
+.container{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+
+    width: 85%;
+    max-width: 700px;
+    min-height: 70vh;
+    padding: 60px 0;
+
+    border: 5px solid #000;
+    background-color: #fff;
+    border-radius: 50px;
+}
+
+.container-interior{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 85%;
+}
+
+.entrada{
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    height: 30px;
+    width: 100%;
+}
+
+
+input{
+    width: calc(98% - 120px);
+    padding: 10px;
+    /* border: none; */
+    /* border-radius: 5px; */
+}
+
+input::placeholder{
+    user-select: none;
+    color: #aaa;
+}
+
+/* TAREAS */
+/* 
+.conjunto-tareas{
+    background-color: blue;
+} */
+
+.tarea{
+    display: flex;
+    padding: 8px;
+    justify-content: space-between;
+    border-radius: 18px;
+    background-color: rgb(21, 176, 140);
+    border: 2px solid #000;
+    margin-bottom: 5px;
+    
+}
+
+.tarea-botones{
+    display: flex;
+}
+
+.tarea-botones button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    background-color: var(--colorSecundario);
+    width: 30px;
+    height: 30px;
+}
+
+/* p{
+    background-color: blue;
+} */
+
+img{
+    height: 60%;
+    fill: white;
+}
