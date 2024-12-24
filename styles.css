@@ -1,63 +1,87 @@
 :root{
-    --colorSecundario: rgb(90, 42, 134);
+    --colorSecundario: #5a2a86;
+    --colorPrimario: #15b08c;
+    --negroClaro: #888;
+    --negroOscruo: #333;
 }
 
 *{
-    box-sizing: border-box;
     margin: 0;
+    
     font-family:sans-serif;
     user-select: none;
+
+    box-sizing: border-box;
 }
 
 body{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    padding: 3rem 0;
 
-    background-color: #333;
-    padding: 50px;
+    background-color: var(--negroOscruo);
 }
 
 button{
+    height: 2.2rem;
+    width: 8em;
+
     font-weight: bold;
-    width: 120px;
-    color: white;
+
     background-color: var(--colorSecundario);
-    border-radius: 10px;
+    color: white;
+    border-radius: 0.7em;
     border: none;
     cursor: pointer;
 }
 
 h1{
-    font-size: 2.5em;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 1em;
+
+    margin: 20px 0;
+    margin: 1rem 0;
+    
+    text-align: center;
+    font-size: 2.5em;
 }
 
-/* PARTE SUPERIOR */
+img{
+    height: 50%;
+    pointer-events: none;
+}
+
+input{
+    height: 2.2rem;
+    width: calc(98% - 8em);
+    padding: 0.5em;
+}
+
+input::placeholder{
+    user-select: none;
+    color: var(--negroClaro);
+}
+
+/* ------------- ELEMENTOS -------------*/
 
 .container{
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
 
+    margin: auto;
     width: 85%;
     max-width: 700px;
     min-height: 70vh;
-    padding: 60px 0;
+    padding: 3.5rem 0;
 
-    border: 5px solid #000;
-    background-color: #fff;
-    border-radius: 50px;
+    border: 0.3rem solid black;
+    background-color: white;
+    border-radius: 3rem;
 }
 
 .container-interior{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
+    margin: auto;
     width: 85%;
 }
 
@@ -65,59 +89,64 @@ h1{
     display: flex;
     margin-bottom: 15px;
     justify-content: space-between;
-    height: 30px;
+    height: 2.2em;
     width: 100%;
 }
 
-
-input{
-    width: calc(98% - 120px);
-    padding: 10px;
-    /* border: none; */
-    /* border-radius: 5px; */
-}
-
-input::placeholder{
-    user-select: none;
-    color: #aaa;
-}
-
 /* TAREAS */
-/* 
-.conjunto-tareas{
+
+p{
+    /* width: 50%; */
     background-color: blue;
-} */
+}
+
+.conjunto-tareas{
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+}
 
 .tarea{
     display: flex;
-    padding: 8px;
+    padding: 0.5rem;
     justify-content: space-between;
-    border-radius: 18px;
-    background-color: rgb(21, 176, 140);
-    border: 2px solid #000;
-    margin-bottom: 5px;
+    border-radius: 1rem;
+    background-color: var(--colorPrimario);
+    border: 0.1rem solid var(--negroOscruo);
+    margin-bottom: 0.3rem;
     
 }
 
 .tarea-botones{
     display: flex;
+    width: 100px;
+    background-color: red;
 }
 
 .tarea-botones button{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 4px;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-left: 0.25rem;
+
     background-color: var(--colorSecundario);
-    width: 30px;
-    height: 30px;
 }
 
-/* p{
-    background-color: blue;
-} */
+/* LISTADO DE ESTILOS */
 
-img{
-    height: 60%;
-    fill: white;
+.listado{
+    background-color: var(--negroOscruo);
+}
+
+
+.listado p{
+    text-decoration: line-through;
+    font-style: italic;
+    color: var(--negroClaro);
+}
+
+.listado button{
+    background-color: var(--negroClaro);
 }
