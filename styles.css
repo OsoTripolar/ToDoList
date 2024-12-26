@@ -181,8 +181,8 @@ p {
 
 .listado{
     background-color: var(--negroOscruo);
+    order: -1;
 }
-
 
 .listado p{
     text-decoration: line-through;

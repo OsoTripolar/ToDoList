@@ -6,112 +6,128 @@
     // v2: objetos
     // v3: localStorage
 
-// ------------ CAMBIOS ------------ //
-
-// separar las listas con flex, order flex o no se como se llama
-// cada objeto debe tener debe tener: tarea(), completadoQuestion(boolean) : aparte un id
-
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
 const listaTareas = document.querySelector('.conjunto-tareas')
 const botonBorrarLista = document.getElementById('borrar-lista')
 
-const tareasPendientes = []
-const tareasHechas = []
+let auxIndex;
 
+asignarKeyProxIndex();
+mostrarListas();
 
 // ------------ BOTONES ------------ //
 
 botonNuevaTarea.addEventListener('click', ()=>{
 
     if (input.value !== ""){
-        tareasPendientes.push(input.value)
+        
+        // Creamos el objeto de nueva tarea
+        const nuevaTarea = {
+            tarea : input.value,
+            marcado: false,
+        }
+
+        // Añadimos el objeto al localStorage
+        localStorage.setItem(auxIndex, JSON.stringify(nuevaTarea))
+        // Aumentamos el N° del proxIndex
+        auxIndex++;
+        localStorage.setItem('proxIndex', auxIndex)
+        
     }
 
-    imprimirListas();
+    mostrarListas();
     limpiarInput();
+
 });
 
 botonBorrarLista.addEventListener('click', ()=>{
-    tareasPendientes.length = 0
-    tareasHechas.length = 0
-    
-    imprimirListas();
+
+    // Borra la lista y reasigna la proxIndex
+    localStorage.clear();
+    localStorage.setItem('proxIndex', '0')
+
+    mostrarListas();
 })
 
 // ------------ FUNCIONES ------------ //
 
-function imprimirListas(){
-
-    // limpiar campo
-    listaTareas.textContent = "";
-
-    // imprimir las tareas
-    mostrarListas(tareasHechas, tareasPendientes,true)
-    mostrarListas(tareasPendientes,tareasHechas, false)
-
+function asignarKeyProxIndex (){
+    
+    if(localStorage.length === 0){ 
+        
+        localStorage.setItem('proxIndex', '0')
+        console.log("no había nada en el LocalStorage");
+        auxIndex = 0;
+        
+    }else{
+        auxIndex = localStorage.getItem('proxIndex')
+    }
 }
 
-//El tercer parámetro debe ser un booleano, solo colocar true si el primer parámetro necesita estilos de elemento marcado
-function mostrarListas(arrayOrigen, arrayHermano, aparienciaDeListado){
+function mostrarListas(){
 
-    let auxIndice = 0;
+    // limpiamos el campo 
+    listaTareas.innerHTML = "";
 
-    for(const tarea of arrayOrigen){
+    // Recorremos el localStorage (no accede a la key proxIndex)
+    for(let i = 0; i < localStorage.getItem('proxIndex'); i++){
 
-        // Acceso y clonación del template
-        const template = document.querySelector('template')
-        const clone = document.importNode(template.content, true);
+        //Tenemos que cerciorarnos de que el key exista
+        if (localStorage.getItem(i) !== null){
 
-        // Seleccion de los elementos
-        const divTarea = clone.querySelector('.tarea');
-        const p = clone.querySelector('p');
-        const botonBorrar = clone.querySelector('.boton-eliminar');
-        const botonListar = clone.querySelector('.boton-listar');
+            // convertimos la tarea a formato objeto
+            const tareaFormatoObjeto = JSON.parse(localStorage.getItem(i)); 
 
-        // Modificación de Elementos
-        divTarea.setAttribute('data-valor', auxIndice);
-        p.textContent = tarea;
+            // Acceso y clonación del template
+            const template = document.querySelector('template')
+            const clone = document.importNode(template.content, true);
 
-        // Dependiendo del array aplicamos clases
-        if(aparienciaDeListado){
-            divTarea.classList.add('listado')
-        }
+            // Seleccion de los elementos
+            const divTarea = clone.querySelector('.tarea');
+            const p = clone.querySelector('p');
+            const botonBorrar = clone.querySelector('.boton-eliminar');
+            const botonListar = clone.querySelector('.boton-listar');
 
-        // Boton Borrar
-        botonBorrar.addEventListener('click', (e)=>{
-            const divTareaActual = e.target.parentElement.parentElement
-            const indexRef = divTareaActual.getAttribute('data-valor')
+            // Modificación de Elementos
+            p.textContent = tareaFormatoObjeto.tarea;
+
+            // Dependiendo del array aplicamos clases
+            if(tareaFormatoObjeto.marcado){
+                divTarea.classList.add('listado')
+            }
+
+            // Boton Borrar
+            botonBorrar.addEventListener('click', ()=>{
+
+                localStorage.removeItem(i);
+                mostrarListas();
+
+            })
             
-            //elimina el elemento del array
-            arrayOrigen.splice(indexRef,1);
+            // Boton Listar
+            botonListar.addEventListener('click', ()=>{
 
-            imprimirListas();
-        })
-        
-        // Boton Listar
-        botonListar.addEventListener('click', (e)=>{
-            const divTareaActual = e.target.parentElement.parentElement
-            const indexRef = divTareaActual.getAttribute('data-valor')
+                // Funciona como un toogle
+                tareaFormatoObjeto.marcado = !tareaFormatoObjeto.marcado;
+                // Regresamos con el valor que define el estilo cambiado
+                localStorage.setItem(i, JSON.stringify(tareaFormatoObjeto));
 
-            // añade el elemento al arrat contrario
-            arrayHermano.push(arrayOrigen[indexRef]);
-            // elimina ese elemento del array actual
-            arrayOrigen.splice(indexRef, 1);
+                mostrarListas();
+            })
 
-            imprimirListas();
-        })
+            // Añadimos al DOM
+            listaTareas.appendChild(clone)
 
-        auxIndice++;
-        
-        // Lo añade al DOM
-        listaTareas.appendChild(clone);
+        }
 
     }
 }
 
 // Funcion para testear
-function verListasEnConsola(){
+function verListasEnConsola(mensaje = "no especifica"){
+    console.log("FUNCION: ver lista en consolas (LocalStorage)");
+    console.log("línea de código " + mensaje);
     console.log(localStorage);
 }
 
