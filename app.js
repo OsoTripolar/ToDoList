@@ -61,7 +61,7 @@ function asignarKeyProxIndex (){
         auxIndex = 0;
         
     }else{
-        auxIndex = localStorage.getItem('proxIndex')
+        auxIndex = parseInt(localStorage.getItem('proxIndex'));
     }
 }
 
@@ -71,7 +71,7 @@ function mostrarListas(){
     listaTareas.innerHTML = "";
 
     // Recorremos el localStorage (no accede a la key proxIndex)
-    for(let i = 0; i < localStorage.getItem('proxIndex'); i++){
+    for(let i = 0; i < parseInt(localStorage.getItem('proxIndex')); i++){
 
         //Tenemos que cerciorarnos de que el key exista
         if (localStorage.getItem(i) !== null){
@@ -122,13 +122,7 @@ function mostrarListas(){
         }
 
     }
-}
-
-// Funcion para testear
-function verListasEnConsola(mensaje = "no especifica"){
-    console.log("FUNCION: ver lista en consolas (LocalStorage)");
-    console.log("línea de código " + mensaje);
-    console.log(localStorage);
+    
 }
 
 // ------------ ATAJOS ------------ //
