@@ -1,10 +1,15 @@
 // VERSION 2: medium
 
-// En esta versión haremos la lista de tareas utilizando objetos
+// En esta versión haremos la lista de tareas utilizando localStorage
 
     // v1: solo templates
     // v2: objetos
     // v3: localStorage
+
+// ------------ CAMBIOS ------------ //
+
+// separar las listas con flex, order flex o no se como se llama
+// cada objeto debe tener debe tener: tarea(), completadoQuestion(boolean) : aparte un id
 
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
@@ -13,6 +18,9 @@ const botonBorrarLista = document.getElementById('borrar-lista')
 
 const tareasPendientes = []
 const tareasHechas = []
+
+
+// ------------ BOTONES ------------ //
 
 botonNuevaTarea.addEventListener('click', ()=>{
 
@@ -24,6 +32,15 @@ botonNuevaTarea.addEventListener('click', ()=>{
     limpiarInput();
 });
 
+botonBorrarLista.addEventListener('click', ()=>{
+    tareasPendientes.length = 0
+    tareasHechas.length = 0
+    
+    imprimirListas();
+})
+
+// ------------ FUNCIONES ------------ //
+
 function imprimirListas(){
 
     // limpiar campo
@@ -34,13 +51,6 @@ function imprimirListas(){
     mostrarListas(tareasPendientes,tareasHechas, false)
 
 }
-
-botonBorrarLista.addEventListener('click', ()=>{
-    tareasPendientes.length = 0
-    tareasHechas.length = 0
-    
-    imprimirListas();
-})
 
 //El tercer parámetro debe ser un booleano, solo colocar true si el primer parámetro necesita estilos de elemento marcado
 function mostrarListas(arrayOrigen, arrayHermano, aparienciaDeListado){
@@ -102,11 +112,10 @@ function mostrarListas(arrayOrigen, arrayHermano, aparienciaDeListado){
 
 // Funcion para testear
 function verListasEnConsola(){
-    console.log("Pendientes");
-    console.log(tareasPendientes);
-    console.log("Completadas");
-    console.log(tareasHechas);
+    console.log(localStorage);
 }
+
+// ------------ ATAJOS ------------ //
 
 // Atajo tecla ENTER
 input.addEventListener('keydown', (e)=>{
