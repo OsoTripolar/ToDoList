@@ -1,4 +1,4 @@
-// VERSION 2: medium
+// VERSION 3: hard
 
 // En esta versión haremos la lista de tareas utilizando localStorage
 
@@ -57,11 +57,20 @@ function asignarKeyProxIndex (){
     if(localStorage.length === 0){ 
         
         localStorage.setItem('proxIndex', '0')
-        console.log("no había nada en el LocalStorage");
         auxIndex = 0;
         
     }else{
-        auxIndex = parseInt(localStorage.getItem('proxIndex'));
+
+        if(localStorage.getItem(0) !== null){
+
+            auxIndex = parseInt(localStorage.getItem('proxIndex'));
+
+        }else{
+
+            localStorage.clear();
+            asignarKeyProxIndex();
+
+        }
     }
 }
 
@@ -125,6 +134,11 @@ function mostrarListas(){
     
 }
 
+function limpiarInput(){
+    input.value = "";
+    input.focus();
+}
+
 // ------------ ATAJOS ------------ //
 
 // Atajo tecla ENTER
@@ -133,8 +147,3 @@ input.addEventListener('keydown', (e)=>{
         botonNuevaTarea.click(); 
     }
 })
-
-function limpiarInput(){
-    input.value = "";
-    input.focus();
-}

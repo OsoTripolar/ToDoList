@@ -177,6 +177,10 @@ p {
     background-color: var(--colorBorrarActive);
 }
 
+.tarea p{
+    margin: 0.3rem 0;
+}
+
 
 /* LISTADO DE ESTILOS */
 
