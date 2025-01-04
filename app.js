@@ -8,8 +8,9 @@
 
 const input = document.querySelector('input')
 const botonNuevaTarea = document.getElementById('nueva-tarea')
-const listaTareas = document.querySelector('.conjunto-tareas')
 const botonBorrarLista = document.getElementById('borrar-lista')
+const listaTareas = document.querySelector('.conjunto-tareas')
+const popup = document.querySelector('.popup')
 
 let auxIndex;
 
@@ -49,6 +50,8 @@ botonBorrarLista.addEventListener('click', ()=>{
 
     mostrarListas();
 })
+
+
 
 // ------------ FUNCIONES ------------ //
 
@@ -96,6 +99,7 @@ function mostrarListas(){
             const divTarea = clone.querySelector('.tarea');
             const p = clone.querySelector('p');
             const botonBorrar = clone.querySelector('.boton-eliminar');
+            const botonEditar = clone.querySelector('.boton-editar');
             const botonListar = clone.querySelector('.boton-listar');
 
             // Modificación de Elementos
@@ -112,6 +116,11 @@ function mostrarListas(){
                 localStorage.removeItem(i);
                 mostrarListas();
 
+                if (localStorage.length == 1){
+                    console.log("ya se borró todo");
+                    localStorage.setItem("proxIndex", 0) // Reiniciamos 
+                }
+
             })
             
             // Boton Listar
@@ -123,6 +132,14 @@ function mostrarListas(){
                 localStorage.setItem(i, JSON.stringify(tareaFormatoObjeto));
 
                 mostrarListas();
+            })
+
+            //Boton Editar
+            botonEditar.addEventListener('click', ()=>{
+
+                abrirDialogo(i);
+                console.log("xd");
+
             })
 
             // Añadimos al DOM
@@ -137,6 +154,41 @@ function mostrarListas(){
 function limpiarInput(){
     input.value = "";
     input.focus();
+}
+
+async function abrirDialogo(i) {
+
+    const buttonPopupCancelar = document.getElementById('cancelar-popup');
+    const buttonPopupEditar = document.getElementById('editar-popup');
+    const inputEdit = document.querySelector('.popup input')
+
+    inputEdit.value = ""
+    
+    popup.classList.add('popup--visible');
+    
+    const tareaEditada = localStorage.getItem(i);
+    
+    const editarListener = () =>{
+
+        console.log(tareaEditada);
+        cerrarDialogo();
+    }
+    
+    buttonPopupEditar.addEventListener('click', editarListener);
+    
+    buttonPopupCancelar.addEventListener('click', ()=>{
+        cerrarDialogo();
+    });
+    
+    buttonPopupEditar.removeEventListener('click', editarListener);
+}
+
+
+function cerrarDialogo(){
+    return new Promise((resolve) =>{
+        popup.classList.remove('popup--visible');
+        resolve();
+    })
 }
 
 // ------------ ATAJOS ------------ //

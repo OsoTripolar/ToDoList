@@ -202,3 +202,44 @@ p {
 .listado button:active{
     background-color: var(--negroClaroActive);
 }
+
+/*  */
+
+.popup{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+
+    width: 100vw;
+    height: 100vh;
+    
+    background-color: rgba(0, 0, 0, 0.599);
+}
+
+.popup--visible{
+    transform: translateY(0);
+}
+
+.container-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 600px;
+    height: 200px;
+    padding: 30px;
+
+    border: 2px solid #000;
+    border-radius: 15px;
+    background-color: #fff;
+}
+
+.container-popup input{
+    margin: 1rem 0
+}
