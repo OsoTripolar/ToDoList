@@ -11,6 +11,29 @@
     --colorBorrarActive: #68172f;
 }
 
+/* Estilo para toda la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra vertical */
+    height: 12px; /* Altura de la barra horizontal */
+  }
+  
+  /* Estilo para la pista de la barra */
+  ::-webkit-scrollbar-track {
+    background: var(--colorPrimario); /* Color de fondo de la pista */
+    border-radius: 10px; /* Opcional: redondear los bordes */
+  }
+  
+  /* Estilo para el "thumb" (la parte que se mueve) */
+  ::-webkit-scrollbar-thumb {
+    background: var(--colorSecundario); /* Color del thumb */
+    border-radius: 10px; /* Opcional: redondear los bordes */
+  }
+  
+  /* Estilo para el thumb al pasar el mouse */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--colorSecundarioActive); /* Color al hacer hover */
+  }
+
 *{
     margin: 0;
     
