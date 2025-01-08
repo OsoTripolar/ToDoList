@@ -75,7 +75,16 @@ export default function mostrarTareas(){
 
 
 
+function generarBotonListar(){
 
+    // Funciona como un toogle
+    tareaFormatoObjeto.marcado = !tareaFormatoObjeto.marcado;
+    // Regresamos con el valor que define el estilo cambiado
+    localStorage.setItem(i, JSON.stringify(tareaFormatoObjeto));
+    
+    mostrarTareas();
+    
+}
 
 
 
