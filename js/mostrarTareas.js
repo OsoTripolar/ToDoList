@@ -72,34 +72,25 @@ export default function mostrarTareas(){
     }
 }
 
-
-
-
-function generarBotonListar(){
-
-    // Funciona como un toogle
-    tareaFormatoObjeto.marcado = !tareaFormatoObjeto.marcado;
-    // Regresamos con el valor que define el estilo cambiado
-    localStorage.setItem(i, JSON.stringify(tareaFormatoObjeto));
-    
-    mostrarTareas();
-    
-}
-
-
-
 async function abrirPopup(i) {
+
     
     popup.classList.add('popup--visible');
-
+    
     const inputPopup = document.querySelector('.popup input');
     const buttonPopupCancelar = document.getElementById('cancelar-popup');
     const buttonPopupEditar = document.getElementById('editar-popup');
-
+    
     limpiarInput(inputPopup);
-
     
     await new Promise ((resolve) =>{
+
+        // Capturo el texto actual de la tarea a Editar
+        const textoActual =  i.target.parentNode.parentNode.querySelector('p').textContent;
+        
+        console.log(inputPopup);
+        inputPopup.value = textoActual;
+        inputPopup.setSelectionRange(0,inputPopup.value.length);
 
         const tareaID =  i.target.parentNode.parentNode.getAttribute('data-id');
 
