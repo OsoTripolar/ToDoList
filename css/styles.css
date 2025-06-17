@@ -2,6 +2,8 @@
     --negroClaro: #888;
     --negroOscruo: #333;
 
+    --colorFondo: #0e1230;
+
     --colorSecundario: #7a3b9c;
     --colorPrimario: #1aa67f;
     --colorBorrar: #9b1f45;
@@ -49,7 +51,7 @@ body{
     min-height: 100vh;
     padding: 3rem 0 1rem;
 
-    background-color: var(--negroOscruo);
+    background-color: var(--colorFondo);
 }
 
 h1{
@@ -117,7 +119,7 @@ footer p{
     min-height: 70vh;
     padding: 3.5rem 0;
 
-    border: 0.3rem solid black;
+    border: 0.3rem solid var(--colorBorrar);
     background-color: white;
     border-radius: 3rem;
 }
